@@ -22,9 +22,9 @@ const SingleProduct = () => {
     const [isCartVisible, setIsCartVisible] = useState<boolean>(false);
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
     
-    const toggleCart = () => {
+ 
         setIsCartVisible(!isCartVisible);
-    };
+   
     const addToCart = (item: CartItem) => {
         setCartItems((prevItems) => [...prevItems, item]);
         setIsCartVisible(true);
