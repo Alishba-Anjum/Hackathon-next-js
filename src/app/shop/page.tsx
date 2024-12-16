@@ -41,22 +41,22 @@ const Shop = () => {
       </div>
 
       <div className='w-full max-w-[1440px] m-auto flex flex-wrap justify-center items-center gap-4 p-4'>
-        <Home3 bgPicture='/homethree1.png' text='Trenton modular sofa_3' price='Rs. 25,000.00' />
-        <Home3 bgPicture='/homethree2.png' text='Granite dining table dining chair' price='Rs. 25,000.00' />
-        <Home3 bgPicture='/homethree3.png' text='Outdoor bar table and stool' price='Rs. 25,000.00' />
-        <Home3 bgPicture='/homethree4.png' text='Plain console with teak mirror' price='Rs. 25,000.00' />
-        <Home3 bgPicture='/pic5.png' text='Grain coffee table' price='Rs. 15,000.00' />
-        <Home3 bgPicture='/pic6.png' text='Kent coffee table' price='Rs. 225,000.00' />
-        <Home3 bgPicture='/pic7.png' text='Round coffee table_color 2' price='Rs. 251,000.00' />
-        <Home3 bgPicture='/pic8.png' text='Reclaimed teak coffee table' price='Rs. 25,200.00' />
-        <Home3 bgPicture='/pic8.png' text='Plain console_' price='Rs. 258,200.00 ' />
-        <Home3 bgPicture='/pic10.png' text='Reclaimed teak Sideboard' price='Rs. 20,000.00' />
-        <Home3 bgPicture='/pic11.png' text='SJP_0825 ' price='Rs. 200,000.00' />
-        <Home3 bgPicture='/pic12.png' text='Bella chair and table' price='Rs. 100,000.00' />
-        <Home3 bgPicture='/pic13.png' text='Granite square side table' price='Rs. 258,800.00' />
-        <Home3 bgPicture='/pic14.png' text='Asgaard sofa' price='Rs. 250,000.00' />
-        <Home3 bgPicture='/pic15.png' text='Maya sofa three seater' price='Rs. 244,000.00' />
-        <Home3 bgPicture='/pic16.png' text='Outdoor sofa set' price='Rs. 244,000.00' />
+        <a href="/single-product"><Home3 bgPicture='/homethree1.png' text='Trenton modular sofa_3' price='Rs. 25,000.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/homethree2.png' text='Granite dining table dining chair' price='Rs. 25,000.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/homethree3.png' text='Outdoor bar table and stool' price='Rs. 25,000.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/homethree4.png' text='Plain console with teak mirror' price='Rs. 25,000.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/pic5.png' text='Grain coffee table' price='Rs. 15,000.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/pic6.png' text='Kent coffee table' price='Rs. 225,000.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/pic7.png' text='Round coffee table_color 2' price='Rs. 251,000.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/pic8.png' text='Reclaimed teak coffee table' price='Rs. 25,200.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/pic8.png' text='Plain console_' price='Rs. 258,200.00 ' /></a>
+        <a href="/single-product"><Home3 bgPicture='/pic10.png' text='Reclaimed teak Sideboard' price='Rs. 20,000.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/pic11.png' text='SJP_0825 ' price='Rs. 200,000.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/pic12.png' text='Bella chair and table' price='Rs. 100,000.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/pic13.png' text='Granite square side table' price='Rs. 258,800.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/pic14.png' text='Asgaard sofa' price='Rs. 250,000.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/pic15.png' text='Maya sofa three seater' price='Rs. 244,000.00' /></a>
+        <a href="/single-product"><Home3 bgPicture='/pic16.png' text='Outdoor sofa set' price='Rs. 244,000.00' /></a>
       </div>
 
       <div className='w-full h-[300px] flex items-center'>
