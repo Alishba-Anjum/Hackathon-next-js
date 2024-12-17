@@ -11,7 +11,7 @@ const Cart = () => {
     <>
       <Header />
       <Page2 heading='Cart' link='Cart' />
-      <div className="w-full py-24 flex flex-col lg:flex-row gap-8 lg:gap-32 justify-center lg:justify-around">
+      <div className="w-full py-24 flex flex-col lg:flex-row gap-8 lg:gap-32 justify-center lg:justify-around ">
 
         <div className="w-full lg:w-[517px] flex flex-col gap-7">
 
