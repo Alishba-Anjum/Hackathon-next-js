@@ -39,7 +39,7 @@ const SingleProduct = () => {
 
             {/* Cart */}
             <div
-                className={`w-[417px] h-[546px] bg-pink flex flex-col justify-between border absolute top-0 right-0 z-20 ${isCartVisible ? 'flex' : 'hidden'
+                className={`w-[417px] h-[546px] p-6 max-sm:w-[360px] bg-pink flex flex-col justify-between border absolute top-0 right-0 z-20 ${isCartVisible ? 'flex' : 'hidden'
                     }`}
             >
                 <div>
@@ -77,12 +77,12 @@ const SingleProduct = () => {
                         </h1>
                     </div>
                     <hr />
-                    <div className='flex items-center gap-11 mt-5'>
+                    <div className='flex items-center gap-11 max-sm:gap-20 mt-5'>
                         <a href="/cart">
-                            <button className='w-[150px] h-[31px] rounded-2xl border border-black hover:bg-lightYellow'>View Cart</button>
+                            <button className='w-[150px] max-sm:w-[100px] h-[31px] rounded-2xl border border-black hover:bg-lightYellow'>View Cart</button>
                         </a>
                         <a href="/checkout">
-                            <button className='w-[150px] h-[31px] rounded-2xl border border-black hover:bg-lightYellow'>Check out</button>
+                            <button className='w-[150px] max-sm:w-[100px]  h-[31px] rounded-2xl border border-black hover:bg-lightYellow'>Check out</button>
                         </a>
                     </div>
                 </div>
