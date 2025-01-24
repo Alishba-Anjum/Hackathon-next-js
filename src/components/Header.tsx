@@ -20,7 +20,7 @@ function Header() {
   ];
 
   return (
-    <header className="h-[100px] w-full flex items-center lg:justify-end md:justify-between sm:justify-between max-sm:justify-between md:gap-48 sm:24 sm:px-2  md:w-full gap-48 px-6 lg:px-20">
+    <header className="h-[100px] w-full flex items-center lg:justify-end md:justify-between sm:justify-between max-sm:justify-between md:gap-48 sm:24 sm:px-2  md:w-full gap-48 px-6 lg:px-24">
       {/* Logo */}
       <div className="lg:hidden md:flex items-center">
         <Image
