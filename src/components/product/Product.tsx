@@ -80,9 +80,9 @@ const [products, setProducts] = useState<Product[]>([]);
     setFilteredProducts(updatedProducts.slice(0, productsToShow));
   }, [categoryFilter, sortOption, productsToShow, products]);
 
-  // if (loading) {
-  //   return <p>Loading products...</p>;
-  // }
+  if (loading) {
+    return <p>Loading products...</p>;
+  }
 
   return (
     <>
@@ -140,9 +140,11 @@ const [products, setProducts] = useState<Product[]>([]);
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
             <div key={product._id} className="product bg-white p-4 rounded-lg shadow">
-              <img
+              <Image
                 src={product.imagePath || '/default-image.jpg'}
                 alt={product.name || 'Unnamed product'}
+                width={100}
+                height={40}
                 className="w-full h-40 object-cover mb-4"
               />
               <h2 className="font-bold text-lg">{product.name || 'No Name'}</h2>
