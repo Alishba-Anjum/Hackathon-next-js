@@ -1,209 +1,209 @@
 
-'use client'
+// 'use client'
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { FaFacebookSquare, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
-import Footer from '@/components/Footer';
-import { MdCancel } from "react-icons/md";
-import { client } from '@/sanity/lib/client';
-import Header from '@/components/Header';
+// import React, { useState } from 'react';
+// import Image from 'next/image';
+// import { FaFacebookSquare, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
+// import Footer from '@/components/Footer';
+// import { MdCancel } from "react-icons/md";
+// import { client } from '@/sanity/lib/client';
+// import Header from '@/components/Header';
 
-interface CartItem {
-  name: string;
-  price: number;
-  quantity: number;
-}
+// interface CartItem {
+//   name: string;
+//   price: number;
+//   quantity: number;
+// }
 
-interface Product {
-  _id: string;
-  name: string;
-  price: string;
-  discountPercentage: number;
-  imagePath: string;
-  stockLevel: number;
-  category: string;
-  description: string;
-  images: string[];
-}
+// interface Product {
+//   _id: string;
+//   name: string;
+//   price: string;
+//   discountPercentage: number;
+//   imagePath: string;
+//   stockLevel: number;
+//   category: string;
+//   description: string;
+//   images: string[];
+// }
 
-const fetchProductById = async (productId: string): Promise<Product> => {
-  const product = await client.fetch(
-    `*[_type == 'product' && _id == '${productId}']{
-      _id,
-      name,
-      price,
-      discountPercentage,
-      "imagePath": imagePath.asset->url,
-      stockLevel,
-      category,
-      description,
-      images[] { asset->url }
-    }`
-  );
-  return product[0]; // Return the first match
-};
+// const fetchProductById = async (productId: string): Promise<Product> => {
+//   const product = await client.fetch(
+//     `*[_type == 'product' && _id == '${productId}']{
+//       _id,
+//       name,
+//       price,
+//       discountPercentage,
+//       "imagePath": imagePath.asset->url,
+//       stockLevel,
+//       category,
+//       description,
+//       images[] { asset->url }
+//     }`
+//   );
+//   return product[0]; // Return the first match
+// };
 
-// getStaticPaths to generate the paths for dynamic routes
-export const getStaticPaths = async () => {
-  const products = await client.fetch('*[_type == "product"]{_id}');
-  const paths = products.map((product: Product) => ({
-    params: { id: product._id }
-  }));
+// // getStaticPaths to generate the paths for dynamic routes
+// export const getStaticPaths = async () => {
+//   const products = await client.fetch('*[_type == "product"]{_id}');
+//   const paths = products.map((product: Product) => ({
+//     params: { id: product._id }
+//   }));
 
-  return { paths, fallback: 'blocking' };
-};
+//   return { paths, fallback: 'blocking' };
+// };
 
-// getStaticProps for fetching product data based on id
-export const getStaticProps = async ({ params }: { params: { id: string } }) => {
-  const product = await fetchProductById(params.id);
+// // getStaticProps for fetching product data based on id
+// export const getStaticProps = async ({ params }: { params: { id: string } }) => {
+//   const product = await fetchProductById(params.id);
 
-  return {
-    props: {
-      product
-    },
-    revalidate: 10, // Regenerate the page every 10 seconds for fresh data
-  };
-};
+//   return {
+//     props: {
+//       product
+//     },
+//     revalidate: 10, // Regenerate the page every 10 seconds for fresh data
+//   };
+// };
 
-const SingleProduct = ({ product }: { product: Product }) => {
-  const [count, setCount] = useState<number>(1);
-  const [isCartVisible, setIsCartVisible] = useState<boolean>(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+// const SingleProduct = ({ product }: { product: Product }) => {
+//   const [count, setCount] = useState<number>(1);
+//   const [isCartVisible, setIsCartVisible] = useState<boolean>(false);
+//   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const addToCart = (item: CartItem) => {
-    setCartItems((prevItems) => [...prevItems, item]);
-    setIsCartVisible(true);
-  };
+//   const addToCart = (item: CartItem) => {
+//     setCartItems((prevItems) => [...prevItems, item]);
+//     setIsCartVisible(true);
+//   };
 
-  if (!product) return <p>Loading...</p>; // Show loading while fetching product
+//   if (!product) return <p>Loading...</p>; // Show loading while fetching product
 
-  return (
-    <>
-      <Header />
-      {/* Overlay for cart */}
-      {isCartVisible && (
-        <div className="cart-overlay" onClick={() => setIsCartVisible(false)}></div>
-      )}
+//   return (
+//     <>
+//       <Header />
+//       {/* Overlay for cart */}
+//       {isCartVisible && (
+//         <div className="cart-overlay" onClick={() => setIsCartVisible(false)}></div>
+//       )}
 
-      {/* Cart */}
-      <div className={`w-[417px] h-[546px] p-6 max-sm:w-[360px] bg-pink flex flex-col justify-between border absolute top-0 right-0 z-20 ${isCartVisible ? 'flex' : 'hidden'}`}>
-        <div>
-          <div className='flex justify-between px-6 py-4'>
-            <h1 className='text-2xl font-bold'>Shopping Cart</h1>
-            <Image src="/lock.png" alt='' height={9} width={20.66} />
-          </div>
-          <hr className='w-[80%] m-auto' />
-          <div>
-            {cartItems.length > 0 ? (
-              cartItems.map((item, index) => (
-                <div key={index} className='flex justify-between p-4'>
-                  <div className='flex gap-8 items-center'>
-                    <Image src="/cart1.png" alt='' height={105} width={108} />
-                    <div className='flex flex-col items-center gap-2'>
-                      <h1 className='text-sm'>{item.name}</h1>
-                      <pre className='text-sm text-yellow-700'>
-                        {item.quantity} X Rs. {item.price.toLocaleString()}
-                      </pre>
-                    </div>
-                    <MdCancel onClick={() => setCartItems(cartItems.filter((_, i) => i !== index))} />
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p className='text-center text-gray-500'>Your cart is empty</p>
-            )}
-          </div>
-        </div>
-        <div>
-          <div className='flex gap-32 px-6'>
-            <h1>Subtotal</h1>
-            <h1 className='text-yellow-700'>
-              Rs. {cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toLocaleString()}
-            </h1>
-          </div>
-          <hr />
-          <div className='flex items-center gap-11 max-sm:gap-20 mt-5'>
-            <a href="/cart">
-              <button className='w-[150px] max-sm:w-[100px] h-[31px] rounded-2xl border border-black hover:bg-lightYellow'>View Cart</button>
-            </a>
-            <a href="/checkout">
-              <button className='w-[150px] max-sm:w-[100px]  h-[31px] rounded-2xl border border-black hover:bg-lightYellow'>Check out</button>
-            </a>
-          </div>
-        </div>
-      </div>
-      {/* Cart end */}
+//       {/* Cart */}
+//       <div className={`w-[417px] h-[546px] p-6 max-sm:w-[360px] bg-pink flex flex-col justify-between border absolute top-0 right-0 z-20 ${isCartVisible ? 'flex' : 'hidden'}`}>
+//         <div>
+//           <div className='flex justify-between px-6 py-4'>
+//             <h1 className='text-2xl font-bold'>Shopping Cart</h1>
+//             <Image src="/lock.png" alt='' height={9} width={20.66} />
+//           </div>
+//           <hr className='w-[80%] m-auto' />
+//           <div>
+//             {cartItems.length > 0 ? (
+//               cartItems.map((item, index) => (
+//                 <div key={index} className='flex justify-between p-4'>
+//                   <div className='flex gap-8 items-center'>
+//                     <Image src="/cart1.png" alt='' height={105} width={108} />
+//                     <div className='flex flex-col items-center gap-2'>
+//                       <h1 className='text-sm'>{item.name}</h1>
+//                       <pre className='text-sm text-yellow-700'>
+//                         {item.quantity} X Rs. {item.price.toLocaleString()}
+//                       </pre>
+//                     </div>
+//                     <MdCancel onClick={() => setCartItems(cartItems.filter((_, i) => i !== index))} />
+//                   </div>
+//                 </div>
+//               ))
+//             ) : (
+//               <p className='text-center text-gray-500'>Your cart is empty</p>
+//             )}
+//           </div>
+//         </div>
+//         <div>
+//           <div className='flex gap-32 px-6'>
+//             <h1>Subtotal</h1>
+//             <h1 className='text-yellow-700'>
+//               Rs. {cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toLocaleString()}
+//             </h1>
+//           </div>
+//           <hr />
+//           <div className='flex items-center gap-11 max-sm:gap-20 mt-5'>
+//             <a href="/cart">
+//               <button className='w-[150px] max-sm:w-[100px] h-[31px] rounded-2xl border border-black hover:bg-lightYellow'>View Cart</button>
+//             </a>
+//             <a href="/checkout">
+//               <button className='w-[150px] max-sm:w-[100px]  h-[31px] rounded-2xl border border-black hover:bg-lightYellow'>Check out</button>
+//             </a>
+//           </div>
+//         </div>
+//       </div>
+//       {/* Cart end */}
 
-      {/* Product Details */}
-      <div className='w-full flex flex-wrap items-center gap-2 max-sm:mb-6 max-sm:gap-8 md:gap-6 px-4 md:px-28'>
-        <h1 className='text-gray-400'>Home</h1>
-        <Image src="/arrow.png" alt="arrow" height={8} width={14} />
-        <h1 className='text-gray-400'>Shop</h1>
-        <h1 className='text-xl text-gray-400'>|</h1>
-        <h2 className='text-lg font-semibold'>{product.name}</h2>
-      </div>
+//       {/* Product Details */}
+//       <div className='w-full flex flex-wrap items-center gap-2 max-sm:mb-6 max-sm:gap-8 md:gap-6 px-4 md:px-28'>
+//         <h1 className='text-gray-400'>Home</h1>
+//         <Image src="/arrow.png" alt="arrow" height={8} width={14} />
+//         <h1 className='text-gray-400'>Shop</h1>
+//         <h1 className='text-xl text-gray-400'>|</h1>
+//         <h2 className='text-lg font-semibold'>{product.name}</h2>
+//       </div>
 
-      <div className='flex flex-wrap lg:flex-nowrap h-auto w-full px-4 md:px-28'>
-        <div className='w-full lg:w-[553px] h-auto flex justify-center lg:justify-start'>
-          <div className='w-[76px] h-auto flex flex-col gap-7'>
-            {product.images?.map((img, index) => (
-              <Image key={index} src={img} alt='' height={80} width={76} />
-            ))}
-          </div>
-          <div className='w-auto h-auto'>
-            <Image src={product.imagePath} alt='' height={500} width={423} />
-          </div>
-        </div>
+//       <div className='flex flex-wrap lg:flex-nowrap h-auto w-full px-4 md:px-28'>
+//         <div className='w-full lg:w-[553px] h-auto flex justify-center lg:justify-start'>
+//           <div className='w-[76px] h-auto flex flex-col gap-7'>
+//             {product.images?.map((img, index) => (
+//               <Image key={index} src={img} alt='' height={80} width={76} />
+//             ))}
+//           </div>
+//           <div className='w-auto h-auto'>
+//             <Image src={product.imagePath} alt='' height={500} width={423} />
+//           </div>
+//         </div>
 
-        <div className='w-full lg:w-[606.01px] flex flex-col gap-2 mt-6 lg:mt-0'>
-          <h1>{product.name}</h1>
-          <h2 className='text-gray-400'>Rs. {product.price}</h2>
-          <div className='flex items-center gap-4'>
-            <Image src="/stars.png" alt='' height={20} width={127} />
-            <h1 className='text-xl text-gray-400'>|</h1>
-            <h1 className='text-gray-400 text-sm'>5 Customer Review</h1>
-          </div>
-          <p>{product.description}</p>
+//         <div className='w-full lg:w-[606.01px] flex flex-col gap-2 mt-6 lg:mt-0'>
+//           <h1>{product.name}</h1>
+//           <h2 className='text-gray-400'>Rs. {product.price}</h2>
+//           <div className='flex items-center gap-4'>
+//             <Image src="/stars.png" alt='' height={20} width={127} />
+//             <h1 className='text-xl text-gray-400'>|</h1>
+//             <h1 className='text-gray-400 text-sm'>5 Customer Review</h1>
+//           </div>
+//           <p>{product.description}</p>
 
-          <div className='flex gap-11'>
-            <div className='w-[123px] h-[64px] border border-black rounded-xl flex gap-8 items-center px-2'>
-              <button
-                className='w-[9px] h-[24px] text-[20px]'
-                onClick={() => setCount(count > 1 ? count - 1 : 1)}
-              >
-                -
-              </button>
-              <h1>{count}</h1>
-              <button
-                className='w-[11px] h-[24px] text-xl'
-                onClick={() => setCount(count + 1)}
-              >
-                +
-              </button>
-            </div>
-            <button
-              onClick={() =>
-                addToCart({ name: product.name, price: parseFloat(product.price), quantity: count })
-              }
-              className="w-[150px] h-[64px] rounded-2xl border border-black hover:bg-lightYellow"
-            >
-              Add To Cart
-            </button>
-          </div>
-        </div>
-      </div>
+//           <div className='flex gap-11'>
+//             <div className='w-[123px] h-[64px] border border-black rounded-xl flex gap-8 items-center px-2'>
+//               <button
+//                 className='w-[9px] h-[24px] text-[20px]'
+//                 onClick={() => setCount(count > 1 ? count - 1 : 1)}
+//               >
+//                 -
+//               </button>
+//               <h1>{count}</h1>
+//               <button
+//                 className='w-[11px] h-[24px] text-xl'
+//                 onClick={() => setCount(count + 1)}
+//               >
+//                 +
+//               </button>
+//             </div>
+//             <button
+//               onClick={() =>
+//                 addToCart({ name: product.name, price: parseFloat(product.price), quantity: count })
+//               }
+//               className="w-[150px] h-[64px] rounded-2xl border border-black hover:bg-lightYellow"
+//             >
+//               Add To Cart
+//             </button>
+//           </div>
+//         </div>
+//       </div>
 
-      <hr />
+//       <hr />
 
-      {/* Product Description, Additional Information, Reviews */}
-      {/* You can add more sections here if needed */}
-      <Footer />
-    </>
-  );
-};
+//       {/* Product Description, Additional Information, Reviews */}
+//       {/* You can add more sections here if needed */}
+//       <Footer />
+//     </>
+//   );
+// };
 
-export default SingleProduct;
+// export default SingleProduct;
 
 // import React, { useState } from 'react';
 // import Image from 'next/image';
