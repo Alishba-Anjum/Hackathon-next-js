@@ -37,11 +37,12 @@ const MyAccount = () => {
                 </div>
             </div>
 
-            <div className='h-auto w-full flex flex-wrap gap-4 sm:gap-11 bg-pink items-center justify-center py-8'>
-                <Mini heading='Free Delivery' para='For all orders over $50, consectetur adipim scing elit.' />
-                <Mini heading='90 Days Return' para='If goods have problems, consectetur adipim scing elit.' />
-                <Mini heading='Secure Payment' para='100% secure payment, consectetur adipim scing elit.' />
-            </div>
+            <div className='lg:h-[200px] h-auto w-full flex flex-col lg:flex-row gap-11 bg-pink items-center justify-center'>
+         <Mini heading='Free Delivery' para='For all oders over $50, consectetur adipim scing elit.' />
+         <Mini heading='90 Days Return' para='If goods have problems, consectetur adipim scing elit.' />
+         <Mini heading='Secure Payment' para='100% secure payment, consectetur adipim scing elit.' />
+
+       </div>
             <Footer />
         </>
     )

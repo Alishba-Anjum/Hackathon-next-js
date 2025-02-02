@@ -11,15 +11,15 @@ const Homepage2 = ({ heading, linkText, bgImage }
     }
 ) => {
     return (
-        <div className='w-full flex flex-col lg:flex-row md:h-[300px] relative p-4 gap-2'>
+        <div className='h-[300px] w-[600px] flex flex-col md:h-[300px] relative p-2 gap-2'>
             {/* Image Section */}
-            <div className='w-full lg:w-1/2 flex justify-center'>
+            <div className='w-full h-[600px] lg:w-1/2 flex justify-center'>
                 <Image
                     src={bgImage}
                     alt='table'
-                    height={600}
+                    height={700}
                     width={1092}
-                    className='rounded-lg object-cover w-full max-w-[600px] h-auto'
+                    className='rounded-lg object-cover h-[300px] w-full  '
                 />
             </div>
             {/* Content Section */}

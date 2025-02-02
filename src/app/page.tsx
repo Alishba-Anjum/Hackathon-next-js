@@ -25,12 +25,12 @@ const page = () => {
       </div>
       {/* homepage 2 */}
 
-      <div className='lg:h-[672px] h-auto w-full  flex flex-col lg:flex-row items-center lg:gap-32 md:hidden sm:hidden  bg-lightGray'>
+      {/* <div className='lg:h-[572px] h-auto w-full justify-center flex flex-col lg:flex-row items-center lg:gap-11  sm:hidden lg:flex bg-lightGray'>
         <Homepage2 bgImage="/sidetable.png" heading='Side Table' linkText='View More' />
         <div className=':hidden'>
           <Homepage2 bgImage="/sidetable2.png" heading='Side Table' linkText='View More' />
         </div>
-      </div>
+      </div> */}
 
       {/* homepage 3 */}
       <HomepageSection3 />

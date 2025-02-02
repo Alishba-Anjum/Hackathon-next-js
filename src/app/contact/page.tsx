@@ -65,12 +65,13 @@ const Contact = () => {
         </form>
       </div>
 
-      <div className='h-[300px] w-full flex flex-wrap gap-11 bg-pink items-center justify-center'>
-        <Mini heading='Free Delivery' para='For all oders over $50, consectetur adipim scing elit.' />
-        <Mini heading='90 Days Return' para='If goods have problems, consectetur adipim scing elit.' />
-        <Mini heading='Secure Payment' para='100% secure payment, consectetur adipim scing elit.' />
+      <div className='lg:h-[200px] h-auto w-full flex flex-col lg:flex-row gap-11 bg-pink items-center justify-center'>
+         <Mini heading='Free Delivery' para='For all oders over $50, consectetur adipim scing elit.' />
+         <Mini heading='90 Days Return' para='If goods have problems, consectetur adipim scing elit.' />
+         <Mini heading='Secure Payment' para='100% secure payment, consectetur adipim scing elit.' />
 
-      </div>
+       </div>
+
       <Footer />
     </>
   )
