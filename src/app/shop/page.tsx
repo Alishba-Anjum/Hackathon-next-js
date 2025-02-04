@@ -10,7 +10,7 @@ const Shop = () => {
   
   return (
     <div className="h-fit w-full">
-      <Header />
+      
       <Page2 heading="Shop" link="Shop" />
       <Product />
 
@@ -21,7 +21,7 @@ const Shop = () => {
          <Mini heading='Secure Payment' para='100% secure payment, consectetur adipim scing elit.' />
 
        </div>
-      <Footer />
+      
     </div>
   );
 };

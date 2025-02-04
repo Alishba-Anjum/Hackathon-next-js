@@ -8,7 +8,7 @@ import React from 'react'
 const MyAccount = () => {
     return (
         <>
-            <Header />
+            
             <Page2 heading='My Account' link='My account' />
             <div className='h-auto w-full py-7 flex flex-wrap items-center justify-center gap-4 px-4 sm:px-8'>
                 <div className='h-auto w-full sm:w-[608px] flex flex-col gap-8 p-6 sm:p-11'>
@@ -43,7 +43,7 @@ const MyAccount = () => {
          <Mini heading='Secure Payment' para='100% secure payment, consectetur adipim scing elit.' />
 
        </div>
-            <Footer />
+            
         </>
     )
 }

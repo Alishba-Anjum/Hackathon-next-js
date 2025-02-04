@@ -10,7 +10,7 @@ import Footer from '@/components/Footer'
 const Contact = () => {
   return (
     <>
-      <Header />
+     
       <Page2 heading='Contact' link='Contact' />
       <div className="flex flex-col items-center gap-16 py-14 px-6 md:gap-24 lg:gap-32 lg:py-28">
 
@@ -72,7 +72,7 @@ const Contact = () => {
 
        </div>
 
-      <Footer />
+      
     </>
   )
 }

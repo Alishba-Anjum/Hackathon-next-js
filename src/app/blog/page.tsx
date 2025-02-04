@@ -8,7 +8,7 @@ import React from 'react'
 const Blog = () => {
   return (
     <>
-      <Header />
+      
       <Page2 heading='Blog' link='Blog' />
       <Image src="/blog.png" alt='blog' height={2710} width={1440} />
       <div className='h-[300px] w-full flex-wrap flex gap-11 bg-pink items-center justify-center'>
@@ -17,7 +17,7 @@ const Blog = () => {
         <Mini heading='Secure Payment' para='100% secure payment, consectetur adipim scing elit.' />
 
       </div>
-      <Footer />
+     
     </>
   )
 }

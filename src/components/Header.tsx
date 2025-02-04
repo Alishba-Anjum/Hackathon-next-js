@@ -15,7 +15,7 @@ function Header() {
   const navs = [
     { name: "Home", route: "/" },
     { name: "Shop", route: "/shop" },
-    { name: "About", route: "" },
+    { name: "About", route: "/about" },
     { name: "Contact", route: "/contact" },
   ];
 

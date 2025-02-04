@@ -651,14 +651,14 @@ const SingleProduct = () => {
     const [count, setCount] = useState<number>(1);
     const [isCartVisible, setIsCartVisible] = useState<boolean>(false);
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
-    
 
-   
+
+
     const addToCart = (item: CartItem) => {
         setCartItems((prevItems) => [...prevItems, item]);
         setIsCartVisible(true);
     };
-    
+
     return (
         <>
             <Header />

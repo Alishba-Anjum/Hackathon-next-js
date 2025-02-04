@@ -7,7 +7,7 @@ import Footer from '@/components/Footer'
 const Checkout = () => {
   return (
     <>
-      <Header />
+   
       <Page2 heading='Check out' link='Checkout' />
       <div className='h-auto w-full flex flex-col lg:flex-row  gap-6 lg:gap-44 p-4 lg:p-0  md:px-16'>
   {/* left section */}
@@ -92,7 +92,7 @@ const Checkout = () => {
         <Mini heading='Secure Payment' para='100% secure payment, consectetur adipim scing elit.' />
 
       </div>
-      <Footer />
+     
     </>
   )
 }
