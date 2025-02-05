@@ -1,7 +1,6 @@
 
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import Homepage2 from '@/components/home/Home2'
 import HomepageSection3 from '@/components/home/HomepageSection3'
 import HomepageSection4 from '@/components/home/HomepageSection4'
 import HomepageSection5 from '@/components/home/HomepageSection5'

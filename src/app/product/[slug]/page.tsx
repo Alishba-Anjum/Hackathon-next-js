@@ -1,12 +1,10 @@
-'use client'
+
 import type { Product } from "@/app/types/producttype";
 import { addToCart } from "@/components/actions/actions";
 import Footer from "@/components/Footer";
 import { client } from "@/sanity/lib/client";
-import { log } from "console";
 import { groq } from "next-sanity";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import Swal from "sweetalert2";
 

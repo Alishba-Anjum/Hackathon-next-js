@@ -70,7 +70,7 @@ const CartPage = () => {
       return total + price * stock;
     }, 0);
   };
-  console.log("Stored Cart Data:", JSON.parse(localStorage.getItem("cart") || "[]"));
+  
 
 
 
