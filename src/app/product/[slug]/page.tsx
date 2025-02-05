@@ -1,4 +1,4 @@
-'use client';
+
 import type { Product } from "@/app/types/producttype";
 import { addToCart } from "@/components/actions/actions";
 import Footer from "@/components/Footer";

@@ -42,11 +42,11 @@ const CartPage = () => {
   };
 
   // Handle stock quantity change
-  const handleQuantityChange = (id: string, quantity: number) => {
-    if (quantity < 1) return;
-    updateCartQuantity(id, quantity);
-    setCartItems(getCartItems());
-  };
+  // const handleQuantityChange = (id: string, quantity: number) => {
+  //   if (quantity < 1) return;
+  //   updateCartQuantity(id, quantity);
+  //   setCartItems(getCartItems());
+  // };
 
   // Increment quantity by 1
   const handleIncrement = (id: string) => {
@@ -54,7 +54,7 @@ const CartPage = () => {
       const updatedItems = prevItems.map((item) =>
         item._id === id ? { ...item, stock: item.stock + 1 } : item
       );
-      updateCartQuantity(id, updatedItems.find((item) => item._id === id)?.stock || 1);
+       updateCartQuantity(id, updatedItems.find((item) => item._id === id)?.stock || 1);
       return updatedItems;
     });
   };
