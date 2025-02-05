@@ -17,7 +17,7 @@ const Blog = () => {
         <Mini heading='Secure Payment' para='100% secure payment, consectetur adipim scing elit.' />
 
       </div>
-     
+     <Footer />
     </>
   )
 }

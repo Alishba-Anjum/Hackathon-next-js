@@ -256,7 +256,7 @@
 //               <option value="sofa">sofa</option>
 //               <option value="table">table</option>
 //               <option value="bed">bed</option>
-              
+
 //             </select>
 //           </span>
 //         </div>
@@ -290,14 +290,14 @@
 //       </div>
 
 //       {/* Products Section */}
-  
+
 //     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-16 lg:px-28 py-6">
 //         {filteredProducts.length > 0 ? (
-          
+
 //           filteredProducts.map((product) => (
-            
+
 //             <Link href={`/components/product/${product.slug}`} key={product._id}>
-            
+
 
 //             <div key={product._id} className="product bg-white p-4 rounded-lg shadow-lg">
 //               <Image
@@ -338,6 +338,8 @@ import { useState, useEffect } from 'react';
 import { client } from '@/sanity/lib/client';
 import Link from 'next/link';
 import type { Product } from '@/app/types/producttype';
+import { addToCart } from '../actions/actions';
+import Swal from 'sweetalert2';
 
 const fetchProducts = async (): Promise<Product[]> => {
   return client.fetch(
@@ -351,6 +353,7 @@ const fetchProducts = async (): Promise<Product[]> => {
       category,
       description,
       "slug": slug.current // Fetch the slug
+      
     }`
   );
 };
@@ -379,7 +382,18 @@ const Product = () => {
 
     getProducts();
   }, []);
+  const handleAddToCart = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault();
+    addToCart(product);
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: `${product.name} added to cart`,
+      showConfirmButton: false,
+      timer: 1500,
+    });
 
+  }
   useEffect(() => {
     let updatedProducts = [...products];
 
@@ -392,9 +406,9 @@ const Product = () => {
 
     // Sort products
     if (sortOption === 'price-asc') {
-      updatedProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+      updatedProducts.sort((a, b) => (a.price) - (b.price));
     } else if (sortOption === 'price-desc') {
-      updatedProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+      updatedProducts.sort((a, b) => (b.price) - (a.price));
     } else if (sortOption === 'name-asc') {
       updatedProducts.sort((a, b) => a.name.localeCompare(b.name));
     } else if (sortOption === 'name-desc') {
@@ -464,19 +478,25 @@ const Product = () => {
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
             <Link href={`/product/${product.slug}`} key={product._id}>
-              <div className="product bg-white p-4 rounded-lg shadow-lg">
+              <div className="product bg-white p-4 rounded-lg shadow-lg flex flex-col gap-2">
                 <Image
                   src={product.imagePath || '/default-image.jpg'}
                   alt={product.name || 'Unnamed product'}
-                  width={100}
-                  height={40}
+                  width={500}
+                  height={500}
                   className="w-full h-40 object-cover mb-4"
                 />
                 <h2 className="font-bold text-lg">{product.name || 'No Name'}</h2>
-                <p className="text-gray-600 font-semibold">{product.price || 'N/A'}</p>
+                <p className="text-gray-600 font-semibold">${product.price || 'N/A'}</p>
                 <p className="text-gray-400">
                   Category: {product.category || 'Uncategorized'}
                 </p>
+                
+                <button 
+                onClick={(e) => handleAddToCart(e, product)}
+                 className=" bg-orange-200 hover:bg-yellow-700 text-black py-2 px-4 w-[150px]  rounded hover:scale-105 transition transform duration-300 ease-in-out ">
+                  Add to Cart
+                  </button>
               </div>
             </Link>
           ))

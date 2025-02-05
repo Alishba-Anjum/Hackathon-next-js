@@ -1,12 +1,14 @@
 interface Product {
   _id: string;
   name: string;
-  price: string;
+  price: number;
   discountPercentage: number;
   imagePath: string;
-  stockLevel: number;
+  stock: number;
   category: string;
   description: string;
+  isfeatured: boolean;
+  quantity: number;
   slug: {
     current: string;
     _type: "slug";
