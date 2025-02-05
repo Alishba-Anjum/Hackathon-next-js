@@ -21,7 +21,7 @@ export const products = {
       {
         name: 'price',
         title: 'Price',
-        type: 'string',
+        type: 'number',
       },
       {
         name : 'description',

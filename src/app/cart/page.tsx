@@ -15,10 +15,14 @@ import Footer from "@/components/Footer";
 const CartPage = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
 
+  // Fetch cart items on component mount
   useEffect(() => {
-    setCartItems(getCartItems());
+    const items = getCartItems();
+    console.log("Fetched cart items:", items);  // Debug log to check fetched items
+    setCartItems(items);
   }, []);
 
+  // Remove item from cart with confirmation
   const handleRemove = (id: string) => {
     Swal.fire({
       title: "Are you sure?",
@@ -32,88 +36,85 @@ const CartPage = () => {
       if (result.isConfirmed) {
         removeFromCart(id);
         setCartItems(getCartItems());
-        Swal.fire(
-          "Removed!",
-          "Item has been removed from your cart.",
-          "success"
-        );
+        Swal.fire("Removed!", "Item has been removed from your cart.", "success");
       }
     });
   };
 
+  // Handle stock quantity change
   const handleQuantityChange = (id: string, quantity: number) => {
+    if (quantity < 1) return;
     updateCartQuantity(id, quantity);
     setCartItems(getCartItems());
   };
 
+  // Increment quantity by 1
   const handleIncrement = (id: string) => {
-    const product = cartItems.find((item) => item._id === id);
-    if (product) {
-      handleQuantityChange(id, product.stock + 1);
-    }
-  };
-
-  const handleDecrement = (id: string) => {
-    const product = cartItems.find((item) => item._id === id);
-    if (product && product.stock > 1) {
-      handleQuantityChange(id, product.stock - 1);
-    }
-  };
-
-  const calculateTotal = () => {
-    return cartItems.reduce((total, item) => {
-      console.log("Item:", item); // Debug each item
-      console.log("Item price:", item.price, "Item stock:", item.stock); 
-      const price = Number(item.price) || 0; // Ensure price is a number
-      const stock = Number(item.stock) || 0; // Ensure stock is a number
-      console.log(`Calculating: ${price} * ${stock}`); // Debug calculation
-      return total + price * stock;
-    }, 0);
-  };
-  
-
-
-
-  useEffect(() => {
-    console.log("Cart Items from localStorage:", getCartItems()); 
-    setCartItems(getCartItems());
-  }, []);
-  
-
-
-  const handleProceed = () => {
-    Swal.fire({
-      title: "Processing your order...",
-      text: "Please wait a moment.",
-      icon: "info",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Proceed",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          "Success!",
-          "Your order has been successfully processed!",
-          "success"
-        );
-        // Clear the cart after proceeding (optional)
-        setCartItems([]);
-      }
+    setCartItems((prevItems) => {
+      const updatedItems = prevItems.map((item) =>
+        item._id === id ? { ...item, stock: item.stock + 1 } : item
+      );
+      updateCartQuantity(id, updatedItems.find((item) => item._id === id)?.stock || 1);
+      return updatedItems;
     });
   };
 
+  // Decrement quantity by 1
+  const handleDecrement = (id: string) => {
+    setCartItems((prevItems) => {
+      const updatedItems = prevItems.map((item) =>
+        item._id === id && item.stock > 1 ? { ...item, stock: item.stock - 1 } : item
+      );
+      updateCartQuantity(id, updatedItems.find((item) => item._id === id)?.stock || 1);
+      return updatedItems;
+    });
+  };
+
+  // Calculate total price of cart items
+  const calculateTotal = () => {
+    return cartItems.reduce((total, item) => {
+      const price = Number(item.price) ;  // Ensure price is a valid number
+      const quantity = Number(item.stock);  // Ensure stock is a valid number
+
+      // Check for invalid values
+      if (isNaN(price) || isNaN(quantity)) {
+        console.error("Invalid price or stock for item:", item);
+        return total;
+      }
+
+      return total + price * quantity;
+    }, 0);
+  };
+  const handleProceed = () => {
+         Swal.fire({
+           title: "Processing your order...",
+           text: "Please wait a moment.",
+           icon: "info",
+           showCancelButton: true,
+           confirmButtonColor: "#3085d6",
+           cancelButtonColor: "#d33",
+           confirmButtonText: "Proceed",
+        }).then((result) => {
+           if (result.isConfirmed) {
+             Swal.fire(
+               "Success!",
+               "Your order has been successfully processed!",
+               "success"
+             );
+             // Clear the cart after proceeding (optional)
+             setCartItems([]);
+           }
+         });
+       };
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    <>
+    <div className="p-6 bg-gray-100 h-auto">
       <h1 className="text-2xl font-bold mb-6 text-gray-800">Shopping Cart</h1>
 
       <div className="space-y-6">
         {cartItems.length > 0 ? (
           cartItems.map((item) => (
-            <div
-              key={item._id}
-              className="flex items-center justify-between bg-white p-4 rounded-lg shadow-md"
-            >
+            <div key={item._id} className="flex items-center justify-between bg-white p-4 rounded-lg shadow-md">
               <div className="flex items-center">
                 {item.imagePath && (
                   <Image
@@ -138,7 +139,7 @@ const CartPage = () => {
                     <button
                       onClick={() => handleIncrement(item._id)}
                       className="px-2 py-1 bg-gray-300 rounded-md hover:bg-gray-400"
-                    >
+                      >
                       +
                     </button>
                   </div>
@@ -163,22 +164,20 @@ const CartPage = () => {
         <div className="mt-8 bg-white p-4 rounded-lg shadow-md">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-semibold">Total:</h2>
-            <p className="text-xl font-bold text-gray-800">
-              ${calculateTotal().toFixed(2)}
-            </p>
+            <p className="text-xl font-bold text-gray-800">${calculateTotal().toFixed(2)}</p>
           </div>
           <button
-            onClick={handleProceed}
-            className="mt-4 w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-          >
-            Proceed
-          </button>
+           onClick={handleProceed}
+           className="mt-4 w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+           >
+           Proceed
+         </button>
         </div>
       )}
-      <Footer />
     </div>
+      <Footer />
+      </>
   );
 };
 
 export default CartPage;
-
