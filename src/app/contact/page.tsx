@@ -1,5 +1,4 @@
 import ContactPage from '@/components/Contact'
-import Header from '@/components/Header'
 import Page2 from '@/components/Page2'
 import React from 'react'
 import Input from '@/components/Input'

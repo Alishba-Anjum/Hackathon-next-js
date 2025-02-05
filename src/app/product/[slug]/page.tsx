@@ -2,7 +2,6 @@
 import type { Product } from "@/app/types/producttype";
 import { addToCart } from "@/components/actions/actions";
 import Footer from "@/components/Footer";
-import Home3 from "@/components/home/Home3";
 import { client } from "@/sanity/lib/client";
 import { log } from "console";
 import { groq } from "next-sanity";

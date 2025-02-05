@@ -1,7 +1,5 @@
 'use client';
-
 import Footer from '@/components/Footer';
-import Header from '@/components/Header';
 import Page2 from '@/components/Page2';
 import Mini from '@/components/Mini';
 import Product from '@/components/product/Product';

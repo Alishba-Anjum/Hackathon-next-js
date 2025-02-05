@@ -1,4 +1,3 @@
-import Header from '@/components/Header'
 import Input from '@/components/Input'
 import Page2 from '@/components/Page2'
 import React from 'react'

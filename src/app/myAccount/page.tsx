@@ -1,5 +1,4 @@
 import Footer from '@/components/Footer'
-import Header from '@/components/Header'
 import Input from '@/components/Input'
 import Mini from '@/components/Mini'
 import Page2 from '@/components/Page2'
