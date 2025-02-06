@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const Page2 = ({ heading, link }: { heading: string; link: string }) => {
@@ -24,7 +25,7 @@ const Page2 = ({ heading, link }: { heading: string; link: string }) => {
 
 
         <div className="flex gap-2 items-center text-sm md:text-xl">
-          <h1 className="font-semibold">Home</h1>
+          <Link href="/"> <h1 className="font-semibold">Home</h1> </Link>
           <Image src="/arrow.png" alt="arrow" height={8} width={14} />
           <h2>{link}</h2>
         </div>

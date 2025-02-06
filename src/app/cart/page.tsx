@@ -12,6 +12,7 @@ import { urlFor } from "@/sanity/lib/image";
 import Swal from "sweetalert2";
 import Footer from "@/components/Footer";
 
+
 const CartPage = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
 
@@ -85,6 +86,7 @@ const CartPage = () => {
       return total + price * quantity;
     }, 0);
   };
+ 
   const handleProceed = () => {
          Swal.fire({
            title: "Processing your order...",
@@ -103,6 +105,7 @@ const CartPage = () => {
              );
              // Clear the cart after proceeding (optional)
              setCartItems([]);
+             
            }
          });
        };
@@ -166,12 +169,14 @@ const CartPage = () => {
             <h2 className="text-xl font-semibold">Total:</h2>
             <p className="text-xl font-bold text-gray-800">${calculateTotal().toFixed(2)}</p>
           </div>
+          
           <button
            onClick={handleProceed}
            className="mt-4 w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
            >
            Proceed
          </button>
+          
         </div>
       )}
     </div>

@@ -53,7 +53,7 @@ function Header() {
         <a href="/myAccount">
           <Image src="/ussericon.png" alt="User Icon" height={28} width={28} />
         </a>
-        <Image src="/searcicon.png" alt="Search Icon" height={28} width={28} />
+        <Link href="/checkout"> <Image src="/searcicon.png" alt="Search Icon" height={28} width={28} /></Link>
         <Image src="/hearticon.png" alt="Heart Icon" height={28} width={28} />
         <a href="/cart">
           <Image src="/cart.png" alt="Cart Icon" height={28} width={28} />
