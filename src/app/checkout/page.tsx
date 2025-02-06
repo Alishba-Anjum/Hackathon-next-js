@@ -9,6 +9,7 @@ import Footer from '@/components/Footer'
 import { Product } from "../types/producttype";
 import { getCartItems } from "@/components/actions/actions";
 import CheckoutInputs from "@/components/CheckoutInputs";
+import Swal from "sweetalert2";
 
 const Checkout = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
@@ -31,14 +32,14 @@ const Checkout = () => {
     firstName: false,
     lastName: false,
     address: false,
-    city: false,       
+    city: false,
     zipCode: false,
     phone: false,
     email: false,
-    province: false,    
-    country: false,   
-    additionalinformation: false 
-});
+    province: false,
+    country: false,
+    additionalinformation: false
+  });
   useEffect(() => {
     setCartItems(getCartItems());
     const appliedDiscount = localStorage.getItem("appliedDiscount");
@@ -65,33 +66,55 @@ const Checkout = () => {
       firstName: !formValues.firstName,
       lastName: !formValues.lastName,
       address: !formValues.address,
-      city: !formValues.city, 
+      city: !formValues.city,
       zipCode: !formValues.zipCode,
       phone: !formValues.phone,
-      email: !formValues.email, 
-      province: !formValues.province, 
-      country: !formValues.country, 
-      additionalinformation: !formValues.additionalinformation 
+      email: !formValues.email,
+      province: !formValues.province,
+      country: !formValues.country,
+      additionalinformation: !formValues.additionalinformation
     };
-  
-  
-  
+
+
+
     console.log("Form Values:", formValues);  // Debugging
     console.log("Errors Object:", errors);  // Debugging
-  
+
     setFormErrors(errors);
-    
+
     return Object.values(errors).every((error) => !error);
   };
-  
+
 
   const handlePlaceOrder = () => {
-    if (validateForm()) {
-      localStorage.removeItem("appliedDiscount");
-      //   toast.success("Order placed successfully!");
-    } else {
-      //   toast.error("Please fill in all the fields.");
-    }
+    Swal.fire({
+      title: "Processing your order...",
+      text: "Please wait a moment.",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Proceed",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (validateForm()) {
+          localStorage.removeItem("appliedDiscount");
+          Swal.fire(
+            "Success!",
+            "Your order has been successfully processed!",
+            "success"
+          );
+
+        } else {
+          Swal.fire(
+            "Error",
+            "Please fill in all the required fields.",
+            "error"
+          )
+        }
+
+      }
+    });
   };
   return (
     <>
@@ -104,63 +127,63 @@ const Checkout = () => {
         <div className='h-auto w-full lg:w-[608px] flex  py-24  '>
           <div className='h-auto w-full lg:w-[533px] flex flex-col gap-4  max-sm:items-center '>
             <div>
-          <div className="bg-white border rounded-lg p-6 space-y-4">
-            <h2 className="text-lg font-semibold mb-4 text-center text-yellow-700">Product Detail</h2>
-            {cartItems.length > 0 ? (
-              cartItems.map((item) => (
-                <div
-                  key={item._id}
-                  className="flex items-center gap-4 py-3 border-b"
-                >
-                  <div className="w-16 h-16 rounded overflow-hidden">
-                    {item.imagePath && (
-                      <Image
-                        src={item.imagePath}
-                        alt={item.name}
-                        width={64}
-                        height={64}
-                        className="object-cover w-full h-full"
-                      />
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-sm font-medium">{item.name}</h3>
-                    <p className="text-xs text-gray-500">
-                      Quantity: {item.stock}
+              <div className="bg-white border rounded-lg p-6 space-y-4">
+                <h2 className="text-lg font-semibold mb-4 text-center text-yellow-700">Product Detail</h2>
+                {cartItems.length > 0 ? (
+                  cartItems.map((item) => (
+                    <div
+                      key={item._id}
+                      className="flex items-center gap-4 py-3 border-b"
+                    >
+                      <div className="w-16 h-16 rounded overflow-hidden">
+                        {item.imagePath && (
+                          <Image
+                            src={item.imagePath}
+                            alt={item.name}
+                            width={64}
+                            height={64}
+                            className="object-cover w-full h-full"
+                          />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-sm font-medium">{item.name}</h3>
+                        <p className="text-xs text-gray-500">
+                          Quantity: {item.stock}
+                        </p>
+                      </div>
+                      <p className="text-sm font-medium">
+                        ${item.price * item.stock}
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-sm text-gray-500">Your cart is empty.</p>
+                )}
+                <div className="text-right pt-4">
+                  <div className="flex justify-between px-4">
+                    <p className="font-bold">  Subtotal:</p>
+                    <p className="font-medium">
+                      ${subtotal}
                     </p>
                   </div>
-                  <p className="text-sm font-medium">
-                    ${item.price * item.stock}
-                  </p>
+                  <div className="flex justify-between px-4">
+                    <p className="font-semibold">Discount:</p>
+                    <p className="font-medium">
+                      -${discount}
+                    </p>
+                  </div>
+                  <div className="flex justify-between px-4 text-xl font-semibold">
+                    <p>Total</p>
+                    <p className="text-lg font-semibold text-yellow-700">
+                      ${total.toFixed(2)}
+                    </p>
+                  </div>
                 </div>
-              ))
-            ) : (
-              <p className="text-sm text-gray-500">Your cart is empty.</p>
-            )}
-            <div className="text-right pt-4">
-              <div className="flex justify-between px-4">
-                <p className="font-bold">  Subtotal:</p>
-              <p className="font-medium">
-              ${subtotal}
-              </p>
-              </div>
-              <div className="flex justify-between px-4">
-                <p className="font-semibold">Discount:</p>
-              <p className="font-medium">
-                 -${discount}
-              </p>
-              </div>
-              <div className="flex justify-between px-4 text-xl font-semibold">
-                <p>Total</p>
-              <p className="text-lg font-semibold text-yellow-700">
-                ${total.toFixed(2)}
-              </p>
               </div>
             </div>
-          </div>
-          </div>
-              {/* radio input */}
-              <div>
+            {/* radio input */}
+            <div>
               <div className='flex flex-col gap-3 p-3'>
                 <div className='flex gap-4'>
                   <input type="radio" value="Direct Bank Transfer" name='radio' className='bg-black' />
@@ -189,12 +212,12 @@ const Checkout = () => {
 
                 </button>
               </div>
-              </div>
             </div>
           </div>
-
         </div>
-      
+
+      </div>
+
       <div className='h-[300px] w-full flex flex-wrap gap-11 bg-pink items-center justify-center'>
         <Mini heading='Free Delivery' para='For all oders over $50, consectetur adipim scing elit.' />
         <Mini heading='90 Days Return' para='If goods have problems, consectetur adipim scing elit.' />
