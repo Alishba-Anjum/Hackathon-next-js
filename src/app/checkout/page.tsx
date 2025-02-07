@@ -11,9 +11,13 @@ import { getCartItems } from "@/components/actions/actions";
 
 import Swal from "sweetalert2";
 import { client } from "@/sanity/lib/client";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/sanity/lib/firebase";
+import { useRouter } from "next/navigation";
 
 
 const Checkout = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [discount, setDiscount] = useState<number>(0);
   const [formValues, setFormValues] = useState({
@@ -80,69 +84,84 @@ const Checkout = () => {
     return Object.values(errors).every((error) => !error);
   };
 
+useEffect(() => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setIsLoggedIn(true);
+      const uid = user.uid;
+    } else {
+      setIsLoggedIn(false);
+    }
+  });
+}, []);
 
-
+ const router = useRouter();
   const handlePlaceOrder = async () => {
-    Swal.fire({
-      title: "Processing your order...",
-      text: "Please wait a moment.",
-      icon: "info",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Proceed",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const isValid = validateForm();
-        if (isValid) {
-          localStorage.removeItem("appliedDiscount");
-          Swal.fire(
-            "Success!",
-            "Your order has been successfully processed!",
-            "success"
-          );
-
-        } else {
-          Swal.fire(
-            "Error",
-            "Please fill in all the required fields.",
-            "error"
-          )
+    if(isLoggedIn){
+      Swal.fire({
+        title: "Processing your order...",
+        text: "Please wait a moment.",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Proceed",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const isValid = validateForm();
+          if (isValid) {
+            localStorage.removeItem("appliedDiscount");
+            Swal.fire(
+              "Success!",
+              "Your order has been successfully processed!",
+              "success"
+            );
+  
+          } else {
+            Swal.fire(
+              "Error",
+              "Please fill in all the required fields.",
+              "error"
+            )
+          }
+  
         }
-
+      });
+      const orderdata = {
+        _type: 'order',
+        firstName: formValues.firstName,
+        lastName: formValues.lastName,
+        email: formValues.email,
+        address: formValues.address,
+        city: formValues.city,
+        zipCode: formValues.zipCode,
+        phone: formValues.phone,
+        country: formValues.country,
+        cartItems: cartItems?.map((item) => ({
+          _type: 'reference',
+          _ref: item._id
+        })) || [],
+        total: Number(total) || 0,
+        discount: Number(discount) || 0,
+        orderDate: new Date().toISOString(),
+        status: "pending"
+      };
+      
+      try {
+        await client.create(orderdata);
+        if (localStorage.getItem('appliedDiscount')) {
+          localStorage.removeItem('appliedDiscount');
+        }
+      } catch (error) {
+        console.error('Error creating order:', error);
+        alert('Failed to place order. Please try again.');
       }
-    });
-    const orderdata = {
-      _type: 'order',
-      firstName: formValues.firstName,
-      lastName: formValues.lastName,
-      email: formValues.email,
-      address: formValues.address,
-      city: formValues.city,
-      zipCode: formValues.zipCode,
-      phone: formValues.phone,
-      country: formValues.country,
-      cartItems: cartItems?.map((item) => ({
-        _type: 'reference',
-        _ref: item._id
-      })) || [],
-      total: Number(total) || 0,
-      discount: Number(discount) || 0,
-      orderDate: new Date().toISOString(),
-      status: "pending"
-    };
-    
-    try {
-      await client.create(orderdata);
-      if (localStorage.getItem('appliedDiscount')) {
-        localStorage.removeItem('appliedDiscount');
-      }
-    } catch (error) {
-      console.error('Error creating order:', error);
-      alert('Failed to place order. Please try again.');
+    }else{
+      router.push('/signup');
+    }  
     }
     
-  };
+  
   return (
     <>
       <Page2 heading='Check out' link='Checkout' />
@@ -199,7 +218,7 @@ const Checkout = () => {
             </div>
 
             <div className='w-full sm:w-[530px] h-auto flex flex-col gap-2 sm:gap-4'>
-              <label htmlFor="country" className='text-sm sm:text-lg font-semibold'>Country / Region</label>
+              <label htmlFor="country" className='text-sm sm:text-lg font-semibold'>Country</label>
               <input
                 type="text"
                 name="country"

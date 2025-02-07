@@ -11,6 +11,7 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import Swal from "sweetalert2";
 import Footer from "@/components/Footer";
+import { useRouter } from "next/navigation";
 
 
 const CartPage = () => {
@@ -87,6 +88,7 @@ const CartPage = () => {
     }, 0);
   };
  
+  const router = useRouter();
   const handleProceed = () => {
          Swal.fire({
            title: "Processing your order...",
@@ -105,6 +107,7 @@ const CartPage = () => {
              );
              // Clear the cart after proceeding (optional)
              setCartItems([]);
+             router.push("/checkout");
              
            }
          });
