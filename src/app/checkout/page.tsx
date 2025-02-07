@@ -88,7 +88,6 @@ useEffect(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setIsLoggedIn(true);
-      const uid = user.uid;
     } else {
       setIsLoggedIn(false);
     }
