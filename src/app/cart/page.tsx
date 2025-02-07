@@ -175,7 +175,7 @@ const CartPage = () => {
           
           <button
            onClick={handleProceed}
-           className="mt-4 w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+           className="mt-4 w-full px-4 py-2 bg-lightYellow text-yellow-900 rounded-md hover:bg-yellow-100"
            >
            Proceed
          </button>

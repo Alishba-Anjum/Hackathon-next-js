@@ -29,7 +29,7 @@ const Login = () => {
     <div className="flex min-h-screen items-center justify-center bg-lightYellow px-4">
       <div className="w-full max-w-[450px] bg-white p-8 rounded-xl shadow-sm border border-gray-200">
         <div className="mb-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
+          <h2 className="text-3xl font-bold text-yellow-900 mb-2">Welcome Back</h2>
           <p className="text-gray-500">Please sign in to continue</p>
         </div>
 
@@ -50,7 +50,7 @@ const Login = () => {
               placeholder="Enter your email"
               value={formValues.email}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2  focus:ring-yellow-800 focus:border-yellow-800 outline-none transition-all"
             />
           </div>
 
@@ -65,7 +65,7 @@ const Login = () => {
                 placeholder="Enter your password"
                 value={formValues.password}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all pr-12"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-800 focus:border-yellow-800 outline-none transition-all pr-12"
               />
               <button
                 type="button"
@@ -83,7 +83,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-lightYellow-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-sm hover:shadow-md"
+            className="w-full bg-lightYellow text-yellow-950  py-3 rounded-lg font-medium hover:bg-cart transition-colors shadow-sm hover:shadow-md"
           >
             Sign In
           </button>
@@ -93,7 +93,7 @@ const Login = () => {
           Don't have an account?{" "}
           <Link
             href="/signup"
-            className="text-blue-600 hover:text-blue-700 font-medium underline underline-offset-4 transition-colors"
+            className="text-yellow-700 hover:text-yellow-900 font-medium underline underline-offset-4 transition-colors"
           >
             Create account
           </Link>

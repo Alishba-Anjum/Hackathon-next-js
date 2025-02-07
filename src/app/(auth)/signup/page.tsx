@@ -45,10 +45,10 @@ const Register = () => {
   };
    
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-lightYellow px-4">
       <div className="w-full max-w-[450px] bg-white p-8 rounded-xl shadow-sm border border-gray-200">
         <div className="mb-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h2>
+          <h2 className="text-3xl font-bold text-yellow-900 mb-2">Create Account</h2>
           <p className="text-gray-500">Get started with your free account</p>
         </div>
 
@@ -69,7 +69,7 @@ const Register = () => {
               placeholder="Enter your full name"
               value={formValues.name}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-800 focus:border-yellow-800 outline-none transition-all"
             />
           </div>
 
@@ -83,7 +83,7 @@ const Register = () => {
               placeholder="Enter your email"
               value={formValues.email}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-800 focus:border-yellow-800 outline-none transition-all"
             />
           </div>
 
@@ -98,7 +98,7 @@ const Register = () => {
                 placeholder="Create a password"
                 value={formValues.password}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all pr-12"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-800 focus:border-yellow-800 outline-none transition-all pr-12"
               />
               <button
                 type="button"
@@ -125,7 +125,7 @@ const Register = () => {
                 placeholder="Confirm your password"
                 value={formValues.confirmPassword}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all pr-12"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-800 focus:border-yellow-800 outline-none transition-all pr-12"
               />
               <button
                 type="button"
@@ -143,7 +143,7 @@ const Register = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-sm hover:shadow-md"
+            className="w-full bg-lightYellow text-yellow-800 py-3 rounded-lg font-medium hover:bg-cart- transition-colors shadow-sm hover:shadow-md"
           >
             Create Account
           </button>
@@ -153,7 +153,7 @@ const Register = () => {
           Already have an account?{" "}
           <Link
             href="/login"
-            className="text-blue-600 hover:text-blue-700 font-medium underline underline-offset-4 transition-colors"
+            className="text-yellow-700 hover:text-yellow-900 font-medium underline underline-offset-4 transition-colors"
           >
             Sign in
           </Link>
