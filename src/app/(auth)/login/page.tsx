@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { userLogin } from "@/sanity/lib/firebase";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const [formValues, setFormValues] = useState({ email: "", password: "" });
@@ -14,7 +15,7 @@ const Login = () => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
     setError("");
   };
-
+  const router = useRouter(); 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formValues.email || !formValues.password) {
@@ -23,6 +24,7 @@ const Login = () => {
     }
     console.log("Login Successful!", formValues);
     userLogin(formValues.email, formValues.password);
+    router.push("/checkout");
   };
 
   return (

@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { use, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { createAccount } from "@/sanity/lib/firebase";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
   const [formValues, setFormValues] = useState({
@@ -20,7 +21,8 @@ const Register = () => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
     setError("");
   };
-
+   
+  const router = useRouter();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const { name, email, password, confirmPassword } = formValues;
@@ -42,6 +44,7 @@ const Register = () => {
 
     console.log("Registration Successful!", formValues);
     createAccount(email, password);
+    router.push("/login");
   };
    
   return (
