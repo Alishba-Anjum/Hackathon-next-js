@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import {  useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { createAccount } from "@/sanity/lib/firebase";
